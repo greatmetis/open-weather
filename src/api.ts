@@ -1,3 +1,5 @@
+import { weatherSchema } from "./schemas/weatherSchema";
+
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 type getWeatherProps = {
@@ -15,7 +17,7 @@ export async function getWeather({lat,lon}:getWeatherProps){
 
   // parse into json
   const data = await res.json();
-  return data
+  return weatherSchema.parse(data);
 }
 
 

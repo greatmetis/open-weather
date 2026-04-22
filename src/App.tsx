@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getWeather } from "./api";
 
 const API_KEY = import.meta.env.VITE_API_KEY;
+
 function App() {
   const {data} = useQuery({
     queryKey:['weather'],
