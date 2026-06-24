@@ -1,16 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
-import { getWeather } from "./api";
-
-const API_KEY = import.meta.env.VITE_API_KEY;
+import CurrentWeather from "./components/cards/CurrentWeather";
+import DailyForecast from "./components/cards/DailyForecast";
+import HourlyForcast from "./components/cards/HourlyForcast";
 
 function App() {
-  const {data} = useQuery({
-    queryKey:['weather'],
-    queryFn: ()=>getWeather({lat:50,lon:50})
-  })
+  
   return (
     <>
-      <div className="bg-red-500">Test</div>
+    <div className="flex flex-col gap-4">
+      <CurrentWeather />
+      <HourlyForcast />
+      <DailyForecast />
+    </div>
     </>
   )
 }

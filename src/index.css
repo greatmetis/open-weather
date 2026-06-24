@@ -13,6 +13,8 @@
   --shadow:
     rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
+    --color-red:var(--accent);
+
   --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
@@ -26,7 +28,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
+  
   @media (max-width: 1024px) {
     font-size: 16px;
   }
@@ -50,5 +52,32 @@
   #social .button-icon {
     filter: invert(1) brightness(2);
   }
+}
+
+@layer base{
+  h1{
+    @apply text-5xl
+  }
+  h2{
+    @apply text-4xl
+  }
+  h3{
+    @apply text-3xl
+  }
+
+  h4{
+    @apply text-2xl
+  }
+  h5{
+    @apply text-lg;
+  }
+  h6{
+    @apply text-base;
+  }
+
+  body{
+
+  }
+
 }
 
