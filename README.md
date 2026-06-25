@@ -1,11 +1,14 @@
 # Open Weather Project
-This is a mini React + TypeScript project I followed and learnt from [Austin Davis](https://www.youtube.com/watch?v=M-iV9R3kLNA).
+This is a mini React + TypeScript project I followed and learnt from [Austin Davis](https://www.youtube.com/watch?v=M-iV9R3kLNA). ~ `29:40` 
 
 ## Tech Stacks
 - [TailwindCss 4](https://tailwindcss.com/)
 - [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/installation#npm)
 - [Zod](https://zod.dev)
-- [OpenWeather](https://openweathermap.org/api/one-call-3?collection=one_call_api_3.0) -- used One Call API 3.0
+- [OpenWeather](https://openweathermap.org/api/current?collection=current_forecast) -- used free APIs, including Current weather data,Hourly forecast, Daily Forecast, [Geocoding API](https://openweathermap.org/api/geocoding-api?collection=other) and [Weather Map 1.0](Weather maps 1.0)
+
+
+
 
 ## What I have learnt from this project
 
@@ -25,3 +28,24 @@ When using Zod, we use the defined schema and parse our data as in the example b
   // return data;  <- this is original return data that has type of any
   return weatherSchema.parse(data);
 ```
+
+2. React Event Drilling
+> pass click event from the parent to the children
+
+3. Neat way to format time
+
+if using `.toLocaleTimeString()` only, I would get a time format like this `18:00:00`.
+
+However, by passing additional variables, I will can make it shown `6:00pm`.
+
+```javascript
+// 
+{new Date(item.dt * 1000).toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit", hour12:true})}
+```
+
+[Reference](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
+
+4. tanstack Query
+- when queryKey has the same key, tanstack will only query the API once.
+- if dynamic values is using in a api key, it nee
+- `useSuspenseQuery`

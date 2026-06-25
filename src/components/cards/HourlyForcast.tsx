@@ -2,15 +2,16 @@ import { useQuery } from '@tanstack/react-query';
 import { getWeather } from '../../api';
 import Card from './Card'
 import WeatherIcon from '../weatherIcon';
+import type { Coords } from '../../types';
 
 type Props = {
-
+  coords:Coords
 }
 
-export default function HourlyForcast({}: Props) {
+export default function HourlyForcast({coords}: Props) {
   const { data, isError, isLoading } = useQuery({
-    queryKey: ["hourlyForecast"],
-    queryFn: () => getWeather({ type: "hourlyForecast", lat: 50, lon: 50 }),
+    queryKey: ["hourlyForecast",coords],
+    queryFn: () => getWeather({ type: "hourlyForecast", lat: coords.lat, lon:coords.lng }),
   });
 
   return (

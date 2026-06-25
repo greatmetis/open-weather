@@ -1,4 +1,5 @@
 import { dailyForecastSchema } from "./schemas/dailyForecastSchema";
+import { geocodeSchema } from "./schemas/geocodeSchema";
 import { hourlyForecastSchema } from "./schemas/hourlyForecastSchema";
 import { weatherSchema } from "./schemas/weatherSchema";
 
@@ -7,6 +8,8 @@ const API_KEY = import.meta.env.VITE_API_KEY; // use vite env
 type CurrentWeatherResponse = ReturnType<typeof weatherSchema.parse>;
 type HourlyForecastResponse = ReturnType<typeof hourlyForecastSchema.parse>;
 type DailyForecastReponse = ReturnType<typeof dailyForecastSchema.parse>
+type GeoCodeResponse = ReturnType<typeof geocodeSchema.parse>
+
 
 type getWeatherProps = {
   type: "current" | "hourlyForecast" | "dailyForecast";
@@ -64,5 +67,16 @@ export async function getWeather({ type, lat, lon }: getWeatherProps) {
       data = await res.json();
       return dailyForecastSchema.parse(data);
   }
+}
+
+export async function getGeoCode(cityName:string): Promise<GeoCodeResponse | undefined>{
+  if (!API_KEY) {
+    console.error("VITE_API_KEY not found");
+    return;
+  }
+  const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${API_KEY}`);
+
+  const data = await res.json();
+  return geocodeSchema.parse(data);
 }
 

@@ -1,9 +1,7 @@
 import { z } from "zod";
 
 export const dailyForecastSchema = z.object({
-  cod: z.string(),
-  message: z.number(),
-  cnt: z.number().int(),
+
 
   list: z.array(
     z.object({
@@ -62,8 +60,8 @@ export const dailyForecastSchema = z.object({
     name: z.string(),
 
     coord: z.object({
-      lat: z.number(),
-      lon: z.number(),
+      lat: z.number().optional(),
+      lon: z.number().optional(),
     }),
 
     country: z.string(),
