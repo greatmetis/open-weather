@@ -7,10 +7,13 @@ import type { Coords } from "./types";
 import LocationDropdown from "./components/dropdowns/LocationDropdown";
 import { useQuery } from "@tanstack/react-query";
 import { getGeoCode } from "./api";
+import MapTypeDropdown from "./components/dropdowns/MapTypeDropdown";
+
 
 function App() {
   const [coordinates, setCoords] = useState<Coords>({lat:50,lng:150});
   const [location, setLocation] = useState<string>('Taipei');
+  const [mapType, setMapType] = useState<string>('clouds_new');
 
   const {data:geocodeData} = useQuery({
     queryKey:['geocode',location],
@@ -30,8 +33,19 @@ function App() {
   return (
     <>
     <div className="flex flex-col gap-4">
-      <LocationDropdown location={location} setLocation={setLocation}/>
-      <Map coords={coords} onMapClick={onMapClick}/>
+      <div className="flex gap-8">
+        <div className="flex gap-4">
+          <h5>Location: </h5>
+          <LocationDropdown location={location} setLocation={setLocation}/>
+        </div>
+        <div className="flex gap-4">
+          <h5>Map Type: </h5>
+          <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
+        </div>
+        
+      </div>
+      <Map coords={coords} onMapClick={onMapClick} mapType={mapType}/>
+      
       <CurrentWeather coords={coords}/>
       <HourlyForcast coords={coords}/>
       <DailyForecast coords={coords}/>
