@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import CurrentWeather from "./components/cards/CurrentWeather";
 import DailyForecast from "./components/cards/DailyForecast";
 import HourlyForcast from "./components/cards/HourlyForcast";
@@ -8,6 +8,9 @@ import LocationDropdown from "./components/dropdowns/LocationDropdown";
 import { useQuery } from "@tanstack/react-query";
 import { getGeoCode } from "./api";
 import MapTypeDropdown from "./components/dropdowns/MapTypeDropdown";
+import CurrentSkeleton from "./components/skeletons/CurrentSkeleton";
+import DailySkeleton from "./components/skeletons/DailySkeleton";
+import HourlySkeleton from "./components/skeletons/HourlySkeleton";
 
 
 function App() {
@@ -32,8 +35,7 @@ function App() {
     {lat:geocodeData?.[0].lat ?? 0, lng:geocodeData?.[0].lon ?? 0}
   return (
     <>
-    <div className="flex flex-col gap-4">
-      <div className="flex gap-8">
+    <div className="flex gap-8">
         <div className="flex gap-4">
           <h5>Location: </h5>
           <LocationDropdown location={location} setLocation={setLocation}/>
@@ -44,11 +46,37 @@ function App() {
         </div>
         
       </div>
-      <Map coords={coords} onMapClick={onMapClick} mapType={mapType}/>
-      
-      <CurrentWeather coords={coords}/>
-      <HourlyForcast coords={coords}/>
-      <DailyForecast coords={coords}/>
+    <div className="grid grid-cols-1 2xl:flex-1 2xl:min-h-0 md:grid-cols-2 2xl:grid-cols-4 2xl:grid-rows-4 gap-4">
+      <div className="order-1 md:order-2 relative h-120 2xl:h-auto col-span-1 md:col-span-2 2xl:col-span-4 2xl:row-span-2">
+        <Map coords={coords} onMapClick={onMapClick} mapType={mapType}/>
+      </div>
+      <div className="col-span-1 2xl:row-span-2 order-2">
+          <Suspense fallback={<CurrentSkeleton />}>
+            <CurrentWeather coords={coords} />
+          </Suspense>
+        </div>
+        <div className="col-span-1 order-3 2xl:order-4 2xl:row-span-2">
+          <Suspense fallback={<DailySkeleton />}>
+            <DailyForecast coords={coords} />
+          </Suspense>
+        </div>
+        <div className="col-span-1 md:col-span-2 2xl:row-span-1 order-4 2xl:order-3">
+          <Suspense fallback={<HourlySkeleton />}>
+            <HourlyForcast coords={coords} />
+          </Suspense>
+        </div>
+        
+      {/* <div className="order-2 md:order-1">
+      <Suspense fallback={<CurrentSkeleton/>}>
+        <CurrentWeather coords={coords}/>
+      </Suspense>
+      <Suspense fallback={<HourlySkeleton/>}>
+        <HourlyForcast coords={coords}/>
+      </Suspense>
+      <Suspense fallback={<DailySkeleton/>}>
+        <DailyForecast coords={coords}/>
+      </Suspense>
+      </div> */}
     </div>
     </>
   )

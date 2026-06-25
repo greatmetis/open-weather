@@ -55,7 +55,7 @@ export async function getWeather({ type, lat, lon }: getWeatherProps) {
 
     case "hourlyForecast":
       res = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=24&units=metric&appid=${API_KEY}`
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=17&units=metric&appid=${API_KEY}`
       );
       data = await res.json();
       return hourlyForecastSchema.parse(data);

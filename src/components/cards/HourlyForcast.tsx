@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { getWeather } from '../../api';
 import Card from './Card'
-import WeatherIcon from '../weatherIcon';
+import WeatherIcon from '../WeatherIcon';
 import type { Coords } from '../../types';
 
 type Props = {
@@ -9,16 +9,15 @@ type Props = {
 }
 
 export default function HourlyForcast({coords}: Props) {
-  const { data, isError, isLoading } = useQuery({
+  const { data, isError } = useSuspenseQuery({
     queryKey: ["hourlyForecast",coords],
     queryFn: () => getWeather({ type: "hourlyForecast", lat: coords.lat, lon:coords.lng }),
   });
 
   return (
     <>
-    {isLoading && <p>Loading...</p>}
     {isError && <p>Unable to load daily Forecast</p>}
-    {!isLoading && !isError && data && (
+    {!isError && data && (
       <Card title="Hourly Forecast (24 Hours)" childrenClassName="flex gap-3 overflow-x-scroll">
           {data.list.map(item=>(
             <div key={item.dt} className="flex flex-col items-center gap-4 p-2">
