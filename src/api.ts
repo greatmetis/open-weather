@@ -1,3 +1,4 @@
+import { airPollutionSchema } from "./schemas/airPollutionSchema";
 import { dailyForecastSchema } from "./schemas/dailyForecastSchema";
 import { geocodeSchema } from "./schemas/geocodeSchema";
 import { hourlyForecastSchema } from "./schemas/hourlyForecastSchema";
@@ -9,7 +10,7 @@ type CurrentWeatherResponse = ReturnType<typeof weatherSchema.parse>;
 type HourlyForecastResponse = ReturnType<typeof hourlyForecastSchema.parse>;
 type DailyForecastReponse = ReturnType<typeof dailyForecastSchema.parse>
 type GeoCodeResponse = ReturnType<typeof geocodeSchema.parse>
-
+type AirPollutionResponse = ReturnType<typeof airPollutionSchema.parse>
 
 type getWeatherProps = {
   type: "current" | "hourlyForecast" | "dailyForecast";
@@ -80,3 +81,14 @@ export async function getGeoCode(cityName:string): Promise<GeoCodeResponse | und
   return geocodeSchema.parse(data);
 }
 
+export async function getAirPollution({lat,lng}:{lat:number,lng:number}):Promise<AirPollutionResponse | undefined>{
+  if(!API_KEY) {
+    console.error("VITE_API_KEY not found");
+    return;
+  }
+
+  const res = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lng}&appid=${API_KEY}`);
+  
+  const data = await res.json();
+  return airPollutionSchema.parse(data)
+}

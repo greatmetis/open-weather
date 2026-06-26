@@ -6,6 +6,7 @@ This is a mini React + TypeScript project I followed and learnt from [Austin Dav
 - [Tanstack Query](https://tanstack.com/query/latest/docs/framework/react/installation#npm)
 - [Zod](https://zod.dev)
 - [OpenWeather](https://openweathermap.org/api/current?collection=current_forecast) -- used free APIs, including Current weather data,Hourly forecast, Daily Forecast, [Geocoding API](https://openweathermap.org/api/geocoding-api?collection=other) and [Weather Map 1.0](Weather maps 1.0)
+- [Vite-Plugin-svgr]
 
 
 

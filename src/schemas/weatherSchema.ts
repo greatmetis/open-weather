@@ -150,7 +150,7 @@ export const weatherSchema = z.object({
   sys: z.object({
     type: z.number().int().optional(),
     id: z.number().int().optional(),
-    country: z.string(),
+    country: z.string().optional(),
     sunrise: z.number().int(),
     sunset: z.number().int(),
   }),

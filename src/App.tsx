@@ -1,4 +1,4 @@
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import CurrentWeather from "./components/cards/CurrentWeather";
 import DailyForecast from "./components/cards/DailyForecast";
 import HourlyForcast from "./components/cards/HourlyForcast";
@@ -11,12 +11,14 @@ import MapTypeDropdown from "./components/dropdowns/MapTypeDropdown";
 import CurrentSkeleton from "./components/skeletons/CurrentSkeleton";
 import DailySkeleton from "./components/skeletons/DailySkeleton";
 import HourlySkeleton from "./components/skeletons/HourlySkeleton";
-
+import SidePanel from "./components/SidePanel";
+import Hamburger from "/src/assets/hamburger.svg?react"
 
 function App() {
-  const [coordinates, setCoords] = useState<Coords>({lat:50,lng:150});
+  const [coordinates, setCoords] = useState<Coords>({ lat: 25.0375, lng: 121.5637 });
   const [location, setLocation] = useState<string>('Taipei');
   const [mapType, setMapType] = useState<string>('clouds_new');
+  const [isSidePanelOpen, setIsSidePanelOpen] = useState(false)
 
   const {data:geocodeData} = useQuery({
     queryKey:['geocode',location],
@@ -29,13 +31,18 @@ function App() {
     setLocation('custom'); // this determine if the coords should be from the map or the LocationDropdown
   }
 
-  // Condition checkpoint for coordinate sources
-  const coords:Coords = location === 'custom' ? 
-    coordinates : 
-    {lat:geocodeData?.[0].lat ?? 0, lng:geocodeData?.[0].lon ?? 0}
+  useEffect(() => {
+    if (location === 'custom' || !geocodeData?.[0]) {
+      return;
+    }
+
+    setCoords({ lat: geocodeData[0].lat, lng: geocodeData[0].lon });
+  }, [geocodeData, location]);
+
+  const coords = coordinates;
   return (
     <>
-    <div className="flex gap-8">
+    <div className="flex gap-8 py-6">
         <div className="flex gap-4">
           <h5>Location: </h5>
           <LocationDropdown location={location} setLocation={setLocation}/>
@@ -44,7 +51,9 @@ function App() {
           <h5>Map Type: </h5>
           <MapTypeDropdown mapType={mapType} setMapType={setMapType}/>
         </div>
-        
+        <button className="ml-auto" onClick={() => setIsSidePanelOpen(true)}>
+          <Hamburger className="size-8 lg:hidden invert" />
+        </button>
       </div>
     <div className="grid grid-cols-1 2xl:flex-1 2xl:min-h-0 md:grid-cols-2 2xl:grid-cols-4 2xl:grid-rows-4 gap-4">
       <div className="order-1 md:order-2 relative h-120 2xl:h-auto col-span-1 md:col-span-2 2xl:col-span-4 2xl:row-span-2">
@@ -78,6 +87,8 @@ function App() {
       </Suspense>
       </div> */}
     </div>
+
+    <SidePanel coords={coords} isSidePanelOpen={isSidePanelOpen} setIsSidePanelOpen={setIsSidePanelOpen}/>
     </>
   )
 }
