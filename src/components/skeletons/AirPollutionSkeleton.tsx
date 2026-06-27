@@ -7,9 +7,9 @@ type Props = {}
 export default function AirPollutionSkeleton({}: Props) {
   return (
     <div className="flex flex-col gap-4">
-      <Skeleton className="min-w-xs w-full h-11"/>
-      <Skeleton className="w-full h-11"/>
-      <Skeleton className="w-full h-11"/>
+      <Skeleton className="min-w-xs w-full h-8"/>
+      <Skeleton className="w-full h-9"/>
+      <Skeleton className="w-full h-8"/>
           <Skeleton />
           {Array.from({length:6},(_,i)=>{
             return(

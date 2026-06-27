@@ -18,11 +18,11 @@ type Props = {
 export default function SidePanel(props: Props) {
   //decontruct props
   const {isSidePanelOpen, setIsSidePanelOpen} = props;
-  console.log(isSidePanelOpen)
+  // console.log(isSidePanelOpen)
   return (
-    <div className={clsx("fixed top-0 right-0 h-screen w-(--sidebar-width) shadow-md bg-sidebar z-1001 py-8 px-4 overflow-y-scroll transition-transform duration-300 lg:!translate-x-0", isSidePanelOpen ? 'translate-x-0': 'translate-x-full')}>
-      <button onClick={() => setIsSidePanelOpen(false)}>
-        <Chevron className="size-8 -ml-2 lg:hidden invert" />
+    <div className={clsx("fixed top-0 right-0 h-screen w-(--sidebar-width) shadow-md bg-sidebar z-1001 py-6 px-4 overflow-y-scroll transition-transform duration-300 lg:!translate-x-0", isSidePanelOpen ? 'translate-x-0': 'translate-x-full')}>
+      <button onClick={() => setIsSidePanelOpen(false)} className="lg:hidden">
+        <Chevron className="size-8 -ml-2" />
       </button>
       <Suspense fallback={<AirPollutionSkeleton/>}>
         <AirPollution {...props}/>
@@ -44,13 +44,13 @@ function AirPollution({coords}:Props){
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="font-semibold">Air pollution</h2>
-      <h1 className="font-semibold">{dataItem.main.aqi}</h1>
+      <h4 className="font-semibold lg:-mt-2">Air pollution</h4>
+      <h2 className="font-semibold">{dataItem.main.aqi}</h2>
       <div className="flex gap-2">
-        <h2 className="font-semibold">AQI</h2>
+        <h4 className="font-semibold">AQI</h4>
         <Tooltip>
           <TooltipTrigger >
-            <InformationIcon className="size-4 invert"/>
+            <InformationIcon className="size-4"/>
           </TooltipTrigger>
           <TooltipContent>
             <p className="max-w-xs">Air Quality Index. Possible values: 1, 2, 3, 4, 5. Where 1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor.</p>
@@ -114,7 +114,7 @@ function AirPollution({coords}:Props){
             <h6 className="font-bold capitalize">{key}</h6>
               <Tooltip>
                 <TooltipTrigger >
-                  <InformationIcon className="size-4 self-start invert"/>
+                  <InformationIcon className="size-4 self-start"/>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p className="max-w-xs">Concentration of {pollutantNameMapping[key]}</p>
