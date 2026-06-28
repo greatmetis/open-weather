@@ -1,4 +1,3 @@
-import React from 'react'
 import { Skeleton } from '../ui/skeleton'
 import Card from '../cards/Card'
 
@@ -26,9 +25,9 @@ export default function AirPollutionSkeleton({}: Props) {
                 <Skeleton className="font-semibold w-20 h-6"></Skeleton>
               </div>
               <div className="flex justify-between">
-                {Array.from({length:5},(_,i)=>{
+                {Array.from({length:5},(_,j)=>{
                 return(
-                  <Skeleton className="w-8 h-6"/>
+                  <Skeleton key={j} className="w-8 h-6"/>
                 )
                 })}
               </div>
