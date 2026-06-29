@@ -4,6 +4,16 @@ import "leaflet/dist/leaflet.css"
 import type { Coords } from '../types'
 import { MaptilerLayer } from '@maptiler/leaflet-maptilersdk'
 import MapLegend from './MapLegend'
+import { Icon } from "leaflet";
+import defaultIconPng from 'leaflet/dist/images/marker-icon.png'
+
+const defaultIcon = new Icon({
+  iconUrl: defaultIconPng,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41],
+});
 
 type Props = {
   coords:Coords,
@@ -25,7 +35,7 @@ export default function Map({coords,onMapClick,mapType}: Props) {
       <TileLayer 
       opacity={0.7}
       url={`https://tile.openweathermap.org/map/${mapType}/{z}/{x}/{y}.png?appid=${API_KEY}`}/>
-      <Marker position={[lat,lng]}/>
+      <Marker icon={defaultIcon} position={[lat,lng]}/>
       <MapLegend mapType={mapType} />
     </MapContainer>
     
