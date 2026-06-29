@@ -12,7 +12,6 @@ import CurrentSkeleton from "./components/skeletons/CurrentSkeleton";
 import DailySkeleton from "./components/skeletons/DailySkeleton";
 import HourlySkeleton from "./components/skeletons/HourlySkeleton";
 import SidePanel from "./components/SidePanel";
-import Hamburger from "/src/assets/hamburger.svg?react"
 import MobileHeader from "./components/MobileHeader"
 import LightDarkToggle from "./components/LightDarkToggle"
 

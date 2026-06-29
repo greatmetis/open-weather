@@ -203,9 +203,15 @@
 
 }
 
-.dark svg {
+.dark {
+  svg {
     filter: invert(1)
   }
+
+  .icon-check{
+    filter: invert(1)
+  }
+}
 
 
 @keyframes fade-in {

@@ -13,6 +13,7 @@ export default function AirPollutionSkeleton({}: Props) {
           {Array.from({length:6},(_,i)=>{
             return(
             <Card key={i}
+            className='bg-ring/25'
             childrenClassName="flex flex-col !gap-2"
             >
               <div className="flex justify-between">
