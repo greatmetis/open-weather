@@ -4,7 +4,7 @@ import { geocodeSchema } from "./schemas/geocodeSchema";
 import { hourlyForecastSchema } from "./schemas/hourlyForecastSchema";
 import { weatherSchema } from "./schemas/weatherSchema";
 
-const API_KEY = import.meta.env.VITE_API_KEY; // use vite env
+const API_KEY = import.meta.env.VITE_API_KEY?.trim(); // use vite env
 
 type CurrentWeatherResponse = ReturnType<typeof weatherSchema.parse>;
 type HourlyForecastResponse = ReturnType<typeof hourlyForecastSchema.parse>;
@@ -75,7 +75,7 @@ export async function getGeoCode(cityName:string): Promise<GeoCodeResponse | und
     console.error("VITE_API_KEY not found");
     return;
   }
-  const res = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${API_KEY}`);
+  const res = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&appid=${API_KEY}`);
 
   const data = await res.json();
   return geocodeSchema.parse(data);
@@ -87,7 +87,7 @@ export async function getAirPollution({lat,lng}:{lat:number,lng:number}):Promise
     return;
   }
 
-  const res = await fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lng}&appid=${API_KEY}`);
+  const res = await fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lng}&appid=${API_KEY}`);
   
   const data = await res.json();
   return airPollutionSchema.parse(data)

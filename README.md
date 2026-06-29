@@ -236,6 +236,16 @@ const API_KEY = import.meta.env.VITE_API_KEY
 
 > 💡 According to [Vite](https://vite.dev/guide/env-and-mode#node-env-and-modes), variables prefixed with `VITE_` are exposed to the client bundle, so sensitive secrets should not be stored there.
 
+For local development, put the key in `.env.local`:
+
+```bash
+VITE_API_KEY=your_openweather_api_key
+```
+
+For GitHub Pages, the same value must be available during the Actions build. Create a repository secret named `VITE_API_KEY` in `Settings -> Secrets and variables -> Actions`, because Vite replaces `import.meta.env.VITE_API_KEY` at build time.
+
+GitHub Pages is a static host, so this key is still shipped to the browser bundle after build. If you need the key to stay private, move the OpenWeather requests behind your own backend or serverless proxy instead of calling the API directly from the client.
+
 [Reference](https://vite.dev/guide/env-and-mode)
 
 ### Useful resources
