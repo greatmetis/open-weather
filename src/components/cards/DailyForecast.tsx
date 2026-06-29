@@ -1,4 +1,4 @@
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Card from "./Card";
 import { getWeather } from "../../api";
 import WeatherIcon from "../WeatherIcon";
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default function DailyForecast({coords}: Props) {
-  const { data, isError} = useQuery({
+  const { data, isError} = useSuspenseQuery({
     queryKey: ["dailyForecast",coords],
     queryFn: () => getWeather({ type: "dailyForecast", lat: coords.lat, lon: coords.lng }),
   });

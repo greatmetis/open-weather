@@ -78,7 +78,7 @@ function AirPollution({coords}:Props){
             // get relevant pollutant from airQualityLevels
             if(key===pollutant){
               //check which range it falls into
-              if(dataValue >= RangeVal.min && (RangeVal.max != null || dataValue <= RangeVal.max)){
+              if(dataValue >= RangeVal.min && (RangeVal.max != null && dataValue <= RangeVal.max)){
                 currentLevel = level.name.toLocaleLowerCase();
               }
             }
@@ -117,7 +117,7 @@ function AirPollution({coords}:Props){
                   <InformationIcon className="size-4 self-start"/>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p className="max-w-xs">Concentration of {pollutantNameMapping[key]}</p>
+                  <p className="max-w-xs">Concentration of {pollutantNameMapping[pollutant]}</p>
                   </TooltipContent>
               </Tooltip>
             </div>

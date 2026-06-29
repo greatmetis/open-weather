@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet'
+import { useEffect } from 'react'
+import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet'
 import "leaflet/dist/leaflet.css"
 import type { Coords } from '../types'
 import { MaptilerLayer } from '@maptiler/leaflet-maptilersdk'
@@ -59,7 +59,9 @@ function MapTileLayer(){
 
     tileLayer.addTo(map);
 
-    return ()=>map.removeLayer(tileLayer);
+    return ()=>{
+      map.removeLayer(tileLayer);
+    };
   },[])
 
   return null;
